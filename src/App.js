@@ -5,7 +5,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Input name="Test" />
+        <Input />
       </div>
     );
   }
