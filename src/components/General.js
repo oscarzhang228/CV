@@ -7,14 +7,28 @@ class General extends Component {
 
   render() {
     return (
-      <div class="general">
+      <div className="general">
         <h1>General Information</h1>
-        <label htmlFor="name">Name</label>
-        <input id="name" value={this.props.information.name}></input>
-        <label htmlFor="email">Email</label>
-        <input id="email" value={this.props.information.email}></input>
-        <label htmlFor="phone">Phone Number</label>
-        <input id="phone" value={this.props.information.number}></input>
+        <div className="genForm">
+          <div className="name">
+            <label htmlFor="name">Name</label>
+            <input id="name" defaultValue={this.props.information.name}></input>
+          </div>
+          <div className="email">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              defaultValue={this.props.information.email}
+            ></input>
+          </div>
+          <div className="phone">
+            <label htmlFor="phone">Phone Number</label>
+            <input
+              id="phone"
+              defaultValue={this.props.information.number}
+            ></input>
+          </div>
+        </div>
       </div>
     );
   }

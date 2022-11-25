@@ -18,14 +18,14 @@ class Input extends Component {
     };
   }
 
-  onSubmission = (e) => {
+  saveInfo = (e) => {
     let theName = document.getElementById("name").value;
-    let theEmail = document.getElementById("email");
-    let theNumber = document.getElementById("number");
-    let theSchool = document.getElementById("school");
-    let theMajor = document.getElementById("major");
-    let educationBegin = document.getElementById("eduBegin");
-    let educationEnd = document.getElementById("eduEnd");
+    let theEmail = document.getElementById("email").value;
+    let theNumber = document.getElementById("number").value;
+    let theSchool = document.getElementById("school").value;
+    let theMajor = document.getElementById("major").value;
+    let educationBegin = document.getElementById("eduBegin").value;
+    let educationEnd = document.getElementById("eduEnd").value;
     this.setState({
       name: theName,
       email: theEmail,
@@ -37,14 +37,25 @@ class Input extends Component {
     });
   };
 
+  toSubmit = () => {};
+
   render() {
     return (
-      <form>
-        <General information={this.state} />
-        <Education information={this.state} />
-        <Experience information={this.state} />
-        <button type="button" onClick={this.onSubmission}></button>
-      </form>
+      <div className="inputForm">
+        <form>
+          <General information={this.state} />
+          <Education information={this.state} />
+          <Experience information={this.state} />
+          <div class="submitButtons">
+            <button type="button" onClick={this.saveInfo}>
+              Save
+            </button>
+            <button type="button" onClick={this.toSubmit}>
+              Create CV
+            </button>
+          </div>
+        </form>
+      </div>
     );
   }
 }
