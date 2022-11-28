@@ -21,6 +21,7 @@ class Input extends Component {
       styles: false,
     };
     this.returnToThis = this.returnToThis.bind(this);
+    this.companyHandler = this.companyHandler.bind(this);
   }
 
   saveInfo = (e) => {
@@ -43,9 +44,22 @@ class Input extends Component {
   };
 
   toSubmit = () => {
-    this.setState({ styles: true });
-    const inputForm = document.querySelector(".inputForm");
-    inputForm.style.display = "none";
+    const array = [];
+    for (let i = 0; i < 9 - this.state.company.length; i++) {
+      array.push("");
+    }
+    this.setState(
+      {
+        company: this.state.company.concat(array),
+      },
+      () => {
+        this.setState({
+          styles: true,
+        });
+        const inputForm = document.querySelector(".inputForm");
+        inputForm.style.display = "none";
+      }
+    );
   };
 
   returnToThis() {
@@ -55,6 +69,11 @@ class Input extends Component {
     const inputForm = document.querySelector(".inputForm");
     inputForm.style.display = "block";
   }
+
+  companyHandler(array) {
+    this.setState({ company: array });
+  }
+
   render() {
     return (
       <div>
@@ -62,7 +81,10 @@ class Input extends Component {
         <form className="inputForm">
           <General information={this.state} />
           <Education information={this.state} />
-          <Experience information={this.state} />
+          <Experience
+            information={this.state}
+            companyHandler={this.companyHandler}
+          />
           <div className="submitButtons">
             <button type="button" onClick={this.saveInfo}>
               Save

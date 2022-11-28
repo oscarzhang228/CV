@@ -6,6 +6,7 @@ class Experience extends Component {
     this.state = {
       hasGrid: false,
       experience: [],
+      tempFix: false,
     };
   }
 
@@ -25,9 +26,12 @@ class Experience extends Component {
     company.value = "";
     position.value = "";
     tasks.value = "";
-    this.setState({
-      experience: this.state.experience.concat(tempArr),
-    });
+    this.setState(
+      {
+        experience: this.state.experience.concat(tempArr),
+      },
+      () => this.props.companyHandler(this.state.experience)
+    );
     if (this.state.hasGrid === false) {
       this.setState({ hasGrid: true });
       let grid = document.createElement("div");
