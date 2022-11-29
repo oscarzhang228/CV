@@ -4,7 +4,14 @@ import Education from "./Education";
 import Experience from "./Experience";
 import CV from "./CV";
 import React from "react";
-import { StyleSheet } from "@react-pdf/renderer";
+import {
+  Page,
+  Text,
+  Image,
+  Document,
+  StyleSheet,
+  PDFDownloadLink,
+} from "@react-pdf/renderer";
 
 class Input extends Component {
   constructor(props) {
@@ -19,6 +26,7 @@ class Input extends Component {
       eduEnd: "",
       company: [],
       styles: false,
+      saved: false,
     };
     this.returnToThis = this.returnToThis.bind(this);
     this.companyHandler = this.companyHandler.bind(this);
@@ -32,6 +40,39 @@ class Input extends Component {
     let theMajor = document.getElementById("major").value;
     let educationBegin = document.getElementById("eduBegin").value;
     let educationEnd = document.getElementById("eduEnd").value;
+
+    if (
+      theName === "" ||
+      theEmail === "" ||
+      theNumber === "" ||
+      theSchool === "" ||
+      theMajor === ""
+    ) {
+      alert("Please fill in all blanks.");
+      return;
+    }
+
+    if (
+      !theNumber.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/)
+    ) {
+      alert("Please enter a valid phone number using this format XXX-XXX-XXXX");
+      return;
+    }
+    if (
+      !theEmail.match(
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+      )
+    ) {
+      alert("Please enter a valid email using the format johnsmith@email.com");
+      return;
+    }
+    if (isNaN(Date.parse(educationBegin)) || isNaN(Date.parse(educationEnd))) {
+      alert(
+        "Please follow the mm/dd/yy format on the dates for your education."
+      );
+      return;
+    }
+
     this.setState({
       name: theName,
       email: theEmail,
@@ -41,9 +82,17 @@ class Input extends Component {
       eduBegin: educationBegin,
       eduEnd: educationEnd,
     });
+
+    this.setState({
+      saved: true,
+    });
   };
 
   toSubmit = () => {
+    if (this.state.saved === false) {
+      alert("Please save your work first.");
+      return;
+    }
     const array = [];
     for (let i = 0; i < 9 - this.state.company.length; i++) {
       array.push("");
@@ -77,7 +126,10 @@ class Input extends Component {
   render() {
     return (
       <div>
-        <CV info={this.state} edit={this.returnToThis} />
+        <div className="CV">
+          <CV info={this.state} edit={this.returnToThis} />
+        </div>
+
         <form className="inputForm">
           <General information={this.state} />
           <Education information={this.state} />

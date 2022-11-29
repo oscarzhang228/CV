@@ -135,9 +135,15 @@ button {
   margin-top: -20px;
 }
 
+.editButton button {
+  width: 50%;
+  align-self: center;
+}
+
 .editButton {
+  display: flex;
+  flex-direction: column;
   margin-top: 10px;
-  margin-left: 10px;
 }
 
 .header {
@@ -161,4 +167,13 @@ button {
 
 .cvExperience {
   margin-top: 20px;
+}
+
+.docDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.download {
+  display: none;
 }
